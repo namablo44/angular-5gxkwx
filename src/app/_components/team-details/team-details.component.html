@@ -1,0 +1,19 @@
+<ng-container *ngIf="loadingStatus; else isLoaded;">
+    {{loadingStatus}}
+</ng-container>
+<ng-template #isLoaded>
+  <div class="container">
+      <h2>{{team.name}} [{{team.abbreviation | uppercase}}]</h2>
+      <h3><span *ngIf="team.conference.trim()==''">Not identified</span>{{team.conference}} conference</h3>
+      <div class="row">
+          <div class="col">
+              <div>
+                  Scores of past 12 days: <span class="nif">NOT IMPLEMENTED FEATURE</span>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <button id="backBtn" class="back-btn" routerLink="/" routerLinkActive="active"><< Back to all team stats</button>
+      </div>
+  </div>
+  </ng-template>
