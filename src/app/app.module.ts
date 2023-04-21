@@ -1,3 +1,5 @@
+import 'zone.js'; //necessary for stackblitz
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,10 +12,9 @@ import { TeamCardComponent } from './_components/team-card/team-card.component';
 import { TeamDetailsComponent } from './_components/team-details/team-details.component';
 import { ApiService } from './_services/api.service';
 
-
 const ROUTES: Routes = [
   { path: 'results/:id', component: TeamDetailsComponent },
-  { path: '**', component: TeamsExplorerComponent }
+  { path: '**', component: TeamsExplorerComponent },
 ];
 
 @NgModule({
@@ -21,7 +22,7 @@ const ROUTES: Routes = [
     AppComponent,
     TeamsExplorerComponent,
     TeamCardComponent,
-    TeamDetailsComponent
+    TeamDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +32,6 @@ const ROUTES: Routes = [
   ],
   providers: [ApiService],
   exports: [RouterModule],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
