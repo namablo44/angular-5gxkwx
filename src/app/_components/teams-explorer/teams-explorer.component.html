@@ -3,7 +3,7 @@
 </ng-container>
 <ng-template #isLoaded>
   <select id="teamSelect" [(ngModel)]="selectedTeamId">
-    <option *ngFor="let team of allTeams; let i= index" [value]="team.id" [ngStyle]="{'display': team.isTracked ? 'none' : 'unset' }" >[{{i+1}}] {{team.full_name}} ({{team.isTracked}})</option>
+    <option *ngFor="let team of allTeams; let i= index" [value]="team.id" [ngStyle]="{'display': team.isTracked ? 'none' : 'unset' }" >{{team.full_name}}</option>
   </select>
   <button id="trackBtn" (click)="addTeam(selectedTeamId)" [disabled]="!selectedTeamId">Track team</button>
 </ng-template>
