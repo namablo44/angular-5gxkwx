@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Team } from '../../_models/team.model';
-import { Game } from 'src/app/_models/game.model';
-import { ApiService } from 'src/app/_services/api.service';
+import { Game } from '../../_models/game.model';
+import { ApiService } from '../../_services/api.service';
 
 interface gameSummary {
   result: string,

@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Team } from '../../_models/team.model';
 import { ApiService } from '../../_services/api.service';
-import { Game } from 'src/app/_models/game.model';
-import { Observer, PartialObserver, forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-team-details',
