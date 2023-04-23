@@ -3,9 +3,10 @@
 </ng-container>
 <ng-template #isLoaded>
   <select id="teamSelect" [(ngModel)]="selectedTeamId">
-    <option *ngFor="let team of allTeams; let i= index" [value]="team.id" [ngStyle]="{'display': team.isTracked ? 'none' : 'unset' }" >{{team.full_name}}</option>
+    <option *ngFor="let team of allTeams" [value]="team.id" [ngStyle]="{'display': team.isTracked ? 'none' : 'unset' }">
+      ({{team.id}}){{team.full_name}}</option>
   </select>
-  <button id="trackBtn" (click)="addTeam(selectedTeamId)" [disabled]="!selectedTeamId">Track team</button>
+  <button id="trackBtn" (click)="addTeam(selectedTeamId);" [disabled]="!selectedTeamId">Track team</button>
 </ng-template>
 <div>
   <ng-template #teamCardsContainer></ng-template>

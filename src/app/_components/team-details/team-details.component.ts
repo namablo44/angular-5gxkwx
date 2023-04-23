@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Team } from '../../_models/team.model';
 import { ApiService } from '../../_services/api.service';
+import { Game } from 'src/app/_models/game.model';
+import { Observer, PartialObserver, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-team-details',
@@ -10,21 +12,35 @@ import { ApiService } from '../../_services/api.service';
 })
 export class TeamDetailsComponent {
   team: Team;
+  teamLoadingStatus: string | undefined;
+  gamesLoadingStatus: string | undefined;
   loadingStatus: string | undefined;
+  
   constructor(private _route: ActivatedRoute, private _api: ApiService) {}
   teamId: number;
-  ngOnInit() {
+  games: any[] = [];
+
+  ngOnInit(): void {
     this.teamId = this._route.snapshot.params['id'];
-    this.loadingStatus = 'Team loading... Please wait.';
-    this._api.getOneTeam(this.teamId).subscribe({
-      next: (team: Team) => {
+
+    //retreive data from API
+    this.loadingStatus = 'Loading... Please wait.';
+    forkJoin({
+      team: this._api.getOneTeam(this.teamId),
+      games: this._api.getLastGamesForTeam(this.teamId, 12)
+    }).subscribe({
+      next: (result)=>{
+        this.team = result.team;
+        this.games = result.games;
         this.loadingStatus = undefined;
-        this.team = team;
       },
       error: () => {
         this.loadingStatus =
           'An error occurs during the loading. Please retry.';
       },
-    });
+    })
+
+
+
   }
 }

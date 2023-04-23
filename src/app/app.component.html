@@ -1,16 +1,24 @@
 <div class="info">
     <b>Important message to the corrector:</b> 
+    <div style="text-decoration: line-through; color: gray;">
+        <p>
+            Please notice that I was not able to implement the features related to the scores because of (I think)
+            a dysfunction of the API /games of the API provider (rapidapi). Indeed, the filter on "team_ids" does not have any effect...
+            You can check by yourself by trying on their own website (https://rapidapi.com/theapiguy/api/free-nba). 
+        </p>
+        <p>
+            To get around, I tried to fetch all data without filtering the API, but there are so much data, that it was not a solution.
+            Hope we can talk about those features during the interview...
+        </p>
+        <p>
+            In consequence, everywhere the feature is missing in the template, I replace it by the following sentence <b>"NOT IMPLEMENTED FEATURE"</b> so that you can identify them.
+        </p>
+    </div>
     <p>
-        Please notice that I was not able to implement the features related to the scores because of (I think)
-        a dysfunction of the API /games of the API provider (rapidapi). Indeed, the filter on "team_ids" does not have any effect...
-        You can check by yourself by trying on their own website (https://rapidapi.com/theapiguy/api/free-nba). 
-    </p>
-    <p>
-        To get around, I tried to fetch all data without filtering the API, but there are so much data, that it was not a solution.
-        Hope we can talk about those features during the interview...
-    </p>
-    <p>
-        In consequence, everywhere the feature is missing in the template, I replace it by the following sentence <b>"NOT IMPLEMENTED FEATURE"</b> so that you can identify them.
+        Games data are very poor for recents dates. Lots of missing data, or games not completed...
+        To get around, I have forced a "today date" in the file environment.ts. 
+        It is currently set to 2022-12-01.
+        Feel free to change this paramter value in "environment.ts" file.
     </p>
 </div>
 <h1>NBA Score Tracking App</h1>

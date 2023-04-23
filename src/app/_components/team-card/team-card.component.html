@@ -1,27 +1,35 @@
 <div class="container">
     <button [id]="'remove'+team.abbreviation" class="close-btn" (click)="close()">X</button>
-    <h2>{{team.name}} [{{team.abbreviation | uppercase}}]</h2>
-    <h3><span *ngIf="team.conference.trim()==''">Not identified</span>{{team.conference}} conference</h3>
+    <div class="title">{{team.full_name}} [{{team.abbreviation | uppercase}}]</div>
+    <div class="subtitle"><span *ngIf="team.conference.trim()==''">Not identified</span>{{team.conference}} conference
+    </div>
     <div class="row">
         <div class="col">
             <div>
                 Results of past 12 days:
-                <div class="win">W</div>
-                <div class="lost">L</div>
-                <div class="nif"> NOT IMPLEMENTED FEATURE </div>
+                <div *ngIf="gamesSummary.length==0">Not any game from last 12 days ago for this team</div>
+                <div>
+                    <ng-container *ngFor="let sum of gamesSummary">
+                        <div *ngIf="sum.result=='won'" class="won">W</div>
+                        <div *ngIf="sum.result=='lost'" class="lost">L</div>
+                        <div *ngIf="sum.result=='equality'" class="equality">E</div>
+                    </ng-container>
+                </div>
             </div>
             <div>
-                Avg pts scored: <span class="nif">NOT IMPLEMENTED FEATURE</span>
+                Avg pts scored: {{avgScored}}
             </div>
             <div>
-                Avg pts conceded: <span class="nif">NOT IMPLEMENTED FEATURE</span>
+                Avg pts conceded: {{avgConceded}}
             </div>
         </div>
         <div class="col">
-            <img [src]="'https://interstate21.com/nba-logos/' + team.abbreviation + '.png'" class="logo" alt="Image not found at interstate21.com for this team"/>
+            <img [src]="'https://interstate21.com/nba-logos/' + team.abbreviation + '.png'" class="logo"
+                alt="Image not found at interstate21.com for this team" />
         </div>
     </div>
     <div class="row">
-        <button [id]="'results'+team.abbreviation" class="results-btn" [routerLink]="['/results/', team.id]" routerLinkActive="active">See game result >></button>
+        <button [id]="'results'+team.abbreviation" class="results-btn" [routerLink]="['/results/', team.id]"
+            routerLinkActive="active">See game result >></button>
     </div>
 </div>

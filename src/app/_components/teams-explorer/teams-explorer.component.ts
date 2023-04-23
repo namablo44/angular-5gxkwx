@@ -35,21 +35,33 @@ export class TeamsExplorerComponent implements OnInit {
         this.allTeams = teams.sort((a: Team, b: Team) =>
           a.full_name.localeCompare(b.full_name)
         );
+
+        const alreadyTrackedTeams = localStorage.getItem('trackedTeamsId')?.split(',');
+        if(alreadyTrackedTeams){
+          for(let id of alreadyTrackedTeams){
+            this.addTeam(Number(id));
+          }
+        }
+
       },
       error: () => {
         this.loadingStatus =
           'An error occurs during the loading. Please retry.';
       },
     });
+    
+
   }
 
   addTeam(id: number): void {
-    //create the card component
-    const componentRef = this.viewRef.createComponent(TeamCardComponent);
     const selectedTeam = this.allTeams.find(
-      (team: Team) => team.id == this.selectedTeamId
+      (team: Team) => team.id == id
     );
-    if (selectedTeam) {
+
+    if (selectedTeam && !selectedTeam.isTracked) {
+      //create the card component
+      const componentRef = this.viewRef.createComponent(TeamCardComponent);
+
       componentRef.instance.team = selectedTeam; //input parameter of the component
 
       const sub = componentRef.instance.onRemoveItemEvent.subscribe(
@@ -64,8 +76,9 @@ export class TeamsExplorerComponent implements OnInit {
 
       //track the team
       this.allTeams.forEach((team: Team) => {
-        if (team.id == this.selectedTeamId) team.isTracked = true;
+        if (team.id == id) team.isTracked = true;
       });
+      this.updateLocalStorage();
     }
   }
 
@@ -79,8 +92,13 @@ export class TeamsExplorerComponent implements OnInit {
       componentToRemove.destroy();
       //untrack the team
       this.allTeams.forEach((team: Team) => {
-        if (team.id == this.selectedTeamId) team.isTracked = false;
+        if (team.id == id) team.isTracked = false;
       });
+      this.updateLocalStorage();
     }
+  }
+
+  updateLocalStorage(){
+    localStorage.setItem('trackedTeamsId', this.allTeams.filter((team: Team)=>team.isTracked).map((team: Team)=>team.id).join(','));
   }
 }

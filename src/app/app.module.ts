@@ -27,7 +27,7 @@ const ROUTES: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(ROUTES, { enableTracing: true }),
+    RouterModule.forRoot(ROUTES),
     FormsModule,
   ],
   providers: [ApiService],

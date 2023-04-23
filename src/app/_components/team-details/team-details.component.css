@@ -1,6 +1,35 @@
+.container {
+    border: solid 1px gray;
+    width: 400px;
+    min-height: 250px;
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    background-color: #dddddd;
+}
+
+.title {
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 14pt;
+    font-weight: bold;
+}
+
 .back-btn {
     background-color: green;
     color: white;
     padding: 3px;
     border: 0px;
+}
+
+.row {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.row-score {
+    padding: 4px;
 }

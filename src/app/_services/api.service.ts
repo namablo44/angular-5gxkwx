@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, concat, of } from 'rxjs';
+import { EMPTY, Observable, concat, from, of } from 'rxjs';
 import { concatMap, expand, map, reduce } from 'rxjs/operators';
 import { Team } from '../_models/team.model';
+import { Game } from '../_models/game.model';
+import { todayDate } from '../environment';
 
 interface AllTeamsApiResponse {
   data: Team[];
@@ -15,9 +17,8 @@ interface AllTeamsApiResponse {
   }
 }
 
-/*
 interface AllGamesApiResponse {
-  data: any[];
+  data: Game[];
   meta: {
     current_page: number;
     next_page: number;
@@ -26,7 +27,6 @@ interface AllGamesApiResponse {
     total_pages: number;
   }
 }
-*/
 
 @Injectable({
   providedIn: 'root'
@@ -60,14 +60,17 @@ export class ApiService {
     return this._http.get<Team>(`${url}`, {headers: this.HEADERS})
   }
 
-  /*
-  //method unused because of a bug in API provider : filter on team_ids does not have any effect... :-/
-  getGamesForTeam(id: number): Observable<any> {
-    const url = `https://free-nba.p.rapidapi.com/games`;
-    const idAsArray = [id];
-    const params = new HttpParams().set('team_ids', idAsArray.join(', '))
-    return this._http.get<Team>(`${url}`, {headers: this.HEADERS, params: params})
+  getLastGamesForTeam(id: number, numberOfDays: number): Observable<Game[]> {
+    const datesFilter: any[] = [];
+    let i = 0;
+    while(i<numberOfDays){
+      const newDate = new Date(todayDate);
+      newDate.setDate(todayDate.getDate() - i);
+      datesFilter.push(`&dates[]=${newDate.toISOString().split('T')[0]}`);
+      i++;
+    }
+    const url = `https://free-nba.p.rapidapi.com/games?page=0&per_page=12&team_ids[]=${id}${datesFilter}`;
+    return this._http.get<AllGamesApiResponse>(`${url}`, {headers: this.HEADERS}).pipe(map((result: AllGamesApiResponse)=>result.data));
   }
-  */
 
 }
