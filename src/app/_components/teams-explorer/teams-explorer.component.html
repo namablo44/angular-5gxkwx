@@ -6,7 +6,7 @@
     <option *ngFor="let team of allTeams" [value]="team.id" [ngStyle]="{'display': team.isTracked ? 'none' : 'unset' }">
       {{team.full_name}}</option>
   </select>
-  <button id="trackBtn" (click)="addTeam(selectedTeamId);" [disabled]="!selectedTeamId">Track team</button>
+  <button id="trackBtn" (click)="trackTeam(selectedTeamId);" [disabled]="!selectedTeamId">Track team</button>
 </ng-template>
 <div>
   <ng-template #teamCardsContainer></ng-template>

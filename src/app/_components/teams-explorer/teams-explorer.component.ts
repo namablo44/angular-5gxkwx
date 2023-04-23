@@ -39,7 +39,7 @@ export class TeamsExplorerComponent implements OnInit {
         const alreadyTrackedTeams = localStorage.getItem('trackedTeamsId')?.split(',');
         if (alreadyTrackedTeams) {
           for (let id of alreadyTrackedTeams) {
-            this.addTeam(Number(id));
+            this.trackTeam(Number(id));
           }
         }
 
@@ -49,11 +49,9 @@ export class TeamsExplorerComponent implements OnInit {
           'An error occurs during the loading. Please retry.';
       },
     });
-
-
   }
 
-  addTeam(id: number): void {
+  trackTeam(id: number): void {
     const selectedTeam = this.allTeams.find(
       (team: Team) => team.id == id
     );
@@ -66,7 +64,7 @@ export class TeamsExplorerComponent implements OnInit {
 
       const sub = componentRef.instance.onRemoveItemEvent.subscribe(
         (id: number) => {
-          this.removeTeam(id);
+          this.untrackTeam(id);
         }
       ); //listen to the close event
       componentRef.onDestroy(() => {
@@ -82,7 +80,7 @@ export class TeamsExplorerComponent implements OnInit {
     }
   }
 
-  removeTeam(id: number): void {
+  untrackTeam(id: number): void {
     //remove the card component
     const componentToRemove = this.componentRefs.find(
       (componentRef: ComponentRef<TeamCardComponent>) =>
