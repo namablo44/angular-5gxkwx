@@ -25,7 +25,7 @@ export class TeamsExplorerComponent implements OnInit {
   viewRef: ViewContainerRef;
   componentRefs: ComponentRef<TeamCardComponent>[] = [];
 
-  constructor(private _api: ApiService, private _cdr: ChangeDetectorRef) {}
+  constructor(private _api: ApiService, private _cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.loadingStatus = 'Teams loading... Please wait.';
@@ -37,8 +37,8 @@ export class TeamsExplorerComponent implements OnInit {
         );
 
         const alreadyTrackedTeams = localStorage.getItem('trackedTeamsId')?.split(',');
-        if(alreadyTrackedTeams){
-          for(let id of alreadyTrackedTeams){
+        if (alreadyTrackedTeams) {
+          for (let id of alreadyTrackedTeams) {
             this.addTeam(Number(id));
           }
         }
@@ -49,7 +49,7 @@ export class TeamsExplorerComponent implements OnInit {
           'An error occurs during the loading. Please retry.';
       },
     });
-    
+
 
   }
 
@@ -98,7 +98,7 @@ export class TeamsExplorerComponent implements OnInit {
     }
   }
 
-  updateLocalStorage(){
-    localStorage.setItem('trackedTeamsId', this.allTeams.filter((team: Team)=>team.isTracked).map((team: Team)=>team.id).join(','));
+  updateLocalStorage() {
+    localStorage.setItem('trackedTeamsId', this.allTeams.filter((team: Team) => team.isTracked).map((team: Team) => team.id).join(','));
   }
 }

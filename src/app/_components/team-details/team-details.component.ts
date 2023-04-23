@@ -15,21 +15,22 @@ export class TeamDetailsComponent {
   teamLoadingStatus: string | undefined;
   gamesLoadingStatus: string | undefined;
   loadingStatus: string | undefined;
-  
-  constructor(private _route: ActivatedRoute, private _api: ApiService) {}
+
+  constructor(private _route: ActivatedRoute, private _api: ApiService) { }
   teamId: number;
   games: any[] = [];
 
   ngOnInit(): void {
+    //retreive id from URL
     this.teamId = this._route.snapshot.params['id'];
 
-    //retreive data from API
+    //retreive data from APIs
     this.loadingStatus = 'Loading... Please wait.';
     forkJoin({
       team: this._api.getOneTeam(this.teamId),
       games: this._api.getLastGamesForTeam(this.teamId, 12)
     }).subscribe({
-      next: (result)=>{
+      next: (result) => {
         this.team = result.team;
         this.games = result.games;
         this.loadingStatus = undefined;
@@ -39,8 +40,5 @@ export class TeamDetailsComponent {
           'An error occurs during the loading. Please retry.';
       },
     })
-
-
-
   }
 }
