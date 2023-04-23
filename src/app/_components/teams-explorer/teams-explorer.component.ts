@@ -90,6 +90,8 @@ export class TeamsExplorerComponent implements OnInit {
     );
     if (componentToRemove) {
       componentToRemove.destroy();
+      this.componentRefs.splice(this.componentRefs.indexOf(componentToRemove), 1)
+
       //untrack the team
       this.allTeams.forEach((team: Team) => {
         if (team.id == id) team.isTracked = false;

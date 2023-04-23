@@ -1,6 +1,6 @@
 <div class="container">
     <button [id]="'remove'+team.abbreviation" class="close-btn" (click)="close()">X</button>
-    <div class="title">{{team.full_name}} [{{team.abbreviation | uppercase}}]</div>
+    <div class="title">({{team.id}}){{team.full_name}} [{{team.abbreviation | uppercase}}]</div>
     <div class="subtitle"><span *ngIf="team.conference.trim()==''">Not identified</span>{{team.conference}} conference
     </div>
     <div class="row">
